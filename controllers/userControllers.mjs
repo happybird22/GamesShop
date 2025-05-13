@@ -55,8 +55,14 @@ let login = async (req, res) => {
     return res.status(400).json({ msg: "Invalid Credentials" });
   }
 
-  // res with userId
+  // res with userId (encoded token that has id in it)
   res.json({ userId: user._id, cartId: user.cart });
 };
 
-export default { register, login };
+let getData = async (req, res) => {
+  let user = await User.findById(req.user).select("-password");
+
+  res.json(user);
+}
+
+export default { register, login, getData };
