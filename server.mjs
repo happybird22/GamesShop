@@ -1,27 +1,30 @@
-//Imports
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import morgan from 'morgan';
-import connectDB from './db/conn.mjs'
-import globalError from './middleware/globalErr.mjs';
+// Imports
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import morgan from "morgan";
+import connectDB from "./db/conn.mjs";
+import globalErr from "./middleware/globalErr.mjs";
+import userRoutes from './routes/userRoutes.mjs';
 
-//Setups
+// Setups
+connectDB();
 dotenv.config();
-const PORT = process.env.PORT || 3001;
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-//Middleware
+// Middleware
 app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.json());
 
-//Routes
+// Routes
+app.use('/api/user', userRoutes);
 
-//ErrorHandling Middleware
-app.use(globalError)
+// Err Middleware - only run when we have a server error
+app.use(globalErr);
 
-//Listeners
-app.listen(PORT, ()=> {
-    console.log(`Server running on port: ${PORT}`)
+// listener
+app.listen(PORT, () => {
+  console.log(`Server running on Port: ${PORT}`);
 });
