@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    username: {type: string, required: true, unique: true},
+    username: {type: String, required: true, unique: true},
     email: {
-        type: string, 
+        type: String, 
         required: true, 
         unique: true, 
         match: [
@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
         "Email address must be valid !",
       ],
     },
-    password: {type: string, required: true, minlength: 6},
+    password: {type: String, required: true, minlength: 6},
     admin: {type: Boolean, default: false},
     cart: {type: mongoose.Schema.Types.ObjectId, ref: "Cart"}
 });
