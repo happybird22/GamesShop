@@ -15,6 +15,7 @@ let readGames = async (req, res) => {
 let updatedGame = async (req, res) => {
   let updatedGame = await Game.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
+    runValidators: true,
   });
 
   res.json(updatedGame);

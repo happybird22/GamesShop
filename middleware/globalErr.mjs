@@ -1,5 +1,3 @@
-const globalError = (err, req, res, next) => {
-    res.status(500).json({msg: err.message})
+export default function (err, _req, res, next) {
+  res.status(500).json({ msg: err.message });
 };
-
-export default globalError

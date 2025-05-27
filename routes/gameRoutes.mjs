@@ -2,6 +2,7 @@ import express from "express";
 import auth from "../middleware/auth.mjs";
 import adminAuth from "../middleware/adminAuth.mjs";
 import Game from "../models/gameSchema.mjs";
+import data from "../utilities/seedData.mjs";
 import gameController from "../controllers/gameController.mjs";
 
 const router = express.Router();
@@ -23,10 +24,25 @@ router.get("/", gameController.readGames);
 // @route: Delete /api/game/:id
 // @desc: Delete Game
 // @access: Admin
-
 router
   .route("/:id", auth, adminAuth)
   .put(gameController.updatedGame)
   .delete(gameController.deleteGame);
+
+// @route: GET /api/game/seed
+// @desc: Seed DB information
+// @access: Public
+// router.get("/seed", async (req, res) => {
+//   try {
+//     await Game.deleteMany({});
+
+//     await Game.create(data);
+
+//     res.send("Seeded DB");
+//   } catch (err) {
+//     console.error(err)
+//     res.status(500).json({ msg: "Server Error" });
+//   }
+// });
 
 export default router;

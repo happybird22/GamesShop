@@ -7,6 +7,7 @@ import connectDB from "./db/conn.mjs";
 import globalErr from "./middleware/globalErr.mjs";
 import userRoutes from './routes/userRoutes.mjs';
 import gameRoutes from './routes/gameRoutes.mjs';
+import cartRoutes from './routes/cartRoutes.mjs';
 
 // Setups
 connectDB();
@@ -15,13 +16,14 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+app.use(cors()); // cross origin resource sharing
 app.use(morgan("tiny"));
 app.use(express.json());
 
 // Routes
 app.use('/api/user', userRoutes);
-app.use('api/game', gameRoutes);
+app.use('/api/game', gameRoutes);
+app.use('/api/cart', cartRoutes);
 
 // Err Middleware - only run when we have a server error
 app.use(globalErr);
