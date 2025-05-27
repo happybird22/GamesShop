@@ -1,25 +1,25 @@
-export default function(req, res, next){
-    // get token from header
-    let token = req.header('token');
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 
-    // check if token exists, if not respond error
-    if(!token){
-        res.status(401).json({msg: 'No Token, Auth Denied'})
-    }
+dotenv.config();
 
-    try {
-        // check if valid token, else error
-        if(token.length !== 24){
-            throw Error('Invalid Token')
-        }
+export default function (req, res, next) {
+  // get token from header
+  let token = req.header("token");
 
-        // set user to req
-        req.user = token;
-        
-        next() //go to your route
+  // check if token exists, if not respond error
+  if (!token) {
+    res.status(401).json({ msg: "No Token, Auth Denied" });
+  }
 
-    } catch (error) {
-        console.log(error.message);
-        res.status(401).json({msg: 'Invalid Token'})
-    }
+  try {
+    const decoded = jwt.verify(token, process.env.jwtSecret);
+
+    req.user = decoded.user.id;
+
+    next(); //go to your route
+  } catch (error) {
+    console.log(error.message);
+    res.status(401).json({ msg: "Invalid Token" });
+  }
 }
