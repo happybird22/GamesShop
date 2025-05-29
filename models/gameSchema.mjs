@@ -12,4 +12,4 @@ const gameSchema = new mongoose.Schema({
     totalqty: {type: Number, min: 1, required: true},
 })
 
-export default mongoose.model("Games", gameSchema)
+export default mongoose.model("Game", gameSchema)

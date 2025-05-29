@@ -32,17 +32,17 @@ router
 // @route: GET /api/game/seed
 // @desc: Seed DB information
 // @access: Public
-// router.get("/seed", async (req, res) => {
-//   try {
-//     await Game.deleteMany({});
+router.get("/seed", async (req, res) => {
+  try {
+    await Game.deleteMany({});
 
-//     await Game.create(data);
+    await Game.create(data);
 
-//     res.send("Seeded DB");
-//   } catch (err) {
-//     console.error(err)
-//     res.status(500).json({ msg: "Server Error" });
-//   }
-// });
+    res.send("Seeded DB");
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ msg: "Server Error" });
+  }
+});
 
 export default router;
